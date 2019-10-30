@@ -67,9 +67,6 @@ rice.bit.logit <-
 summary(rice.bit.logit)
 
 
-
-
-
 # # combination of models
 # # WARNING!!
 # # The computation period tends to be long. 
@@ -98,20 +95,4 @@ print(rice.bit.logit.01.plot)
 #
 ## --- END ---
 
-
-
-rice.bit.logit.01.plot <- 
-  ggplot(rice.bid, 
-         aes(x= bid + age + education + 
-               effect + 
-               tourist + graduate + highschool + primary, 
-             y=as.numeric(choice))
-  ) + 
-  geom_point() + 
-  stat_smooth(method="glm", 
-              method.args=list(family="binomial"), 
-              se=TRUE
-  ) +
-  theme_classic()
-print(rice.bit.logit.01.plot)
 
