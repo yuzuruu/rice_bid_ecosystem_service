@@ -4,6 +4,7 @@
 library(tidyverse)
 library(dplyr)
 library(GGally)
+library(MASS)
 
 # ---- read.data ----
 # read data
@@ -32,20 +33,20 @@ rice.bid.01.pairs.02 <-
           )
   )
 
-# save the figures
-ggsave("rice.bid.01.pdf", 
-       plot = rice.bid.01.pairs.01,
-       width = 100,
-       height = 100,
-       units = "cm"
-)
-
-ggsave("rice.bid.02.pdf", 
-       plot = rice.bid.01.pairs.02,
-       width = 100,
-       height = 100,
-       units = "cm"
-)
+# # save the figures
+# ggsave("rice.bid.01.pdf", 
+#        plot = rice.bid.01.pairs.01,
+#        width = 100,
+#        height = 100,
+#        units = "cm"
+# )
+# 
+# ggsave("rice.bid.02.pdf", 
+#        plot = rice.bid.01.pairs.02,
+#        width = 100,
+#        height = 100,
+#        units = "cm"
+# )
 
 #
 ## --- END ---
@@ -64,6 +65,16 @@ rice.bit.logit <-
       data = rice.bid
   )
 summary(rice.bit.logit)
+
+
+
+rice.bit.logit.02 <- 
+  polr(as.factor(bid) ~ education,
+      data = rice.bid,
+      method = c("logistic")
+  )
+summary(rice.bit.logit.02)
+
 
 # # combination of models
 # # WARNING!!
