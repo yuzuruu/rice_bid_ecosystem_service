@@ -71,9 +71,6 @@ summary(rice.bit.logit)
 # library(MuMIn)
 # options(na.action = "na.fail")
 # hogehoge <- dredge(rice.bit.logit, rank = "AIC")
-#
-#
-
 
 # plot the regression results
 rice.bit.logit.01.plot <- 
