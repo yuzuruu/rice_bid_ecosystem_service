@@ -56,7 +56,7 @@ rice.bid.01.pairs.02 <-
 # regression
 rice.bit.logit <- 
   glm(as.numeric(choice) ~ 
-        age + gender + married + education + 
+        bid + age + gender + married + education + 
         knowledge + income + donation + 
         environment + effect + forcon + forimp + forabil + 
         tourist + graduate + highschool + primary + anydona + 
@@ -68,12 +68,6 @@ summary(rice.bit.logit)
 
 
 
-rice.bit.logit.02 <- 
-  polr(as.factor(bid) ~ education,
-      data = rice.bid,
-      method = c("logistic")
-  )
-summary(rice.bit.logit.02)
 
 
 # # combination of models
@@ -86,7 +80,7 @@ summary(rice.bit.logit.02)
 # plot the regression results
 rice.bit.logit.01.plot <- 
   ggplot(rice.bid, 
-         aes(x=age + gender + married + education + 
+         aes(x=bid + age + gender + married + education + 
                knowledge + income + donation + 
                environment + effect + forcon + forimp + forabil + 
                tourist + graduate + highschool + primary + anydona + 
@@ -103,3 +97,21 @@ print(rice.bit.logit.01.plot)
 
 #
 ## --- END ---
+
+
+
+rice.bit.logit.01.plot <- 
+  ggplot(rice.bid, 
+         aes(x= bid + age + education + 
+               effect + 
+               tourist + graduate + highschool + primary, 
+             y=as.numeric(choice))
+  ) + 
+  geom_point() + 
+  stat_smooth(method="glm", 
+              method.args=list(family="binomial"), 
+              se=TRUE
+  ) +
+  theme_classic()
+print(rice.bit.logit.01.plot)
+
