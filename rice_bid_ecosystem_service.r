@@ -1,3 +1,5 @@
+# Ecosystem service etimation using rice bid
+# Est.: 01st. Nov. 2019
 
 
 # ---- load.library ----
@@ -53,7 +55,7 @@ rice.bid.01.pairs.02 <-
 
 # ---- logistic.regression ----
 # 
-# regression
+# logistic regression
 rice.bit.logit <- 
   glm(as.numeric(choice) ~ 
         bid + age + gender + married + education + 
@@ -65,7 +67,6 @@ rice.bit.logit <-
       data = rice.bid
   )
 summary(rice.bit.logit)
-
 
 # # combination of models
 # # WARNING!!
