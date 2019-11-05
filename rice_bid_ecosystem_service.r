@@ -1,9 +1,12 @@
+# Ecosystem service etimation using rice bid
+# Est.: 01st. Nov. 2019
 
 
 # ---- load.library ----
 library(tidyverse)
 library(dplyr)
 library(GGally)
+library(MASS)
 
 # ---- read.data ----
 # read data
@@ -32,30 +35,34 @@ rice.bid.01.pairs.02 <-
           )
   )
 
-# save the figures
-ggsave("rice.bid.01.pdf", 
-       plot = rice.bid.01.pairs.01,
-       width = 100,
-       height = 100,
-       units = "cm"
-)
-
-ggsave("rice.bid.02.pdf", 
-       plot = rice.bid.01.pairs.02,
-       width = 100,
-       height = 100,
-       units = "cm"
-)
+# # save the figures
+# ggsave("rice.bid.01.pdf", 
+#        plot = rice.bid.01.pairs.01,
+#        width = 100,
+#        height = 100,
+#        units = "cm"
+# )
+# 
+# ggsave("rice.bid.02.pdf", 
+#        plot = rice.bid.01.pairs.02,
+#        width = 100,
+#        height = 100,
+#        units = "cm"
+# )
 
 #
 ## --- END ---
 
 # ---- logistic.regression ----
 # 
-# regression
+# logistic regression
+# including all valuables
+# The results indicate some valuables need not to be considered.
+# It, however, should be noted that structure
+# among valuables should be considered.
 rice.bit.logit <- 
   glm(as.numeric(choice) ~ 
-        age + gender + married + education + 
+        bid + age + gender + married + education + 
         knowledge + income + donation + 
         environment + effect + forcon + forimp + forabil + 
         tourist + graduate + highschool + primary + anydona + 
@@ -65,20 +72,20 @@ rice.bit.logit <-
   )
 summary(rice.bit.logit)
 
-# # combination of models
-# # WARNING!!
-# # The computation period tends to be long. 
-# library(MuMIn)
-# options(na.action = "na.fail")
-# hogehoge <- dredge(rice.bit.logit, rank = "AIC")
-#
-#
-
-
 # plot the regression results
+# NOTE:
+# The figure shows that probability to be 1 (choice = 1)
+# declines slightly as sum of right side of model increases, 
+# suggesting effect of bid and other valuables do not work
+# no matter which option people might chose.
+# Besides, range of coefficient intervals is too wide. 
+#
+# In concluding, the model should be modified while
+# considering descriptive statistics of each valuable!!
+# i.e. nesting
 rice.bit.logit.01.plot <- 
   ggplot(rice.bid, 
-         aes(x=age + gender + married + education + 
+         aes(x=bid + age + gender + married + education + 
                knowledge + income + donation + 
                environment + effect + forcon + forimp + forabil + 
                tourist + graduate + highschool + primary + anydona + 
@@ -95,3 +102,5 @@ print(rice.bit.logit.01.plot)
 
 #
 ## --- END ---
+
+
