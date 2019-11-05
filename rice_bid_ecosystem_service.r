@@ -56,6 +56,10 @@ rice.bid.01.pairs.02 <-
 # ---- logistic.regression ----
 # 
 # logistic regression
+# including all valuables
+# The results indicate some valuables need not to be considered.
+# It, however, should be noted that structure
+# among valuables should be considered.
 rice.bit.logit <- 
   glm(as.numeric(choice) ~ 
         bid + age + gender + married + education + 
@@ -68,14 +72,17 @@ rice.bit.logit <-
   )
 summary(rice.bit.logit)
 
-# # combination of models
-# # WARNING!!
-# # The computation period tends to be long. 
-# library(MuMIn)
-# options(na.action = "na.fail")
-# hogehoge <- dredge(rice.bit.logit, rank = "AIC")
-
 # plot the regression results
+# NOTE:
+# The figure shows that probability to be 1 (choice = 1)
+# declines slightly as sum of right side of model increases, 
+# suggesting effect of bid and other valuables do not work
+# no matter which option people might chose.
+# Besides, range of coefficient intervals is too wide. 
+#
+# In concluding, the model should be modified while
+# considering descriptive statistics of each valuable!!
+# i.e. nesting
 rice.bit.logit.01.plot <- 
   ggplot(rice.bid, 
          aes(x=bid + age + gender + married + education + 
